@@ -1,4 +1,3 @@
-// scripts.js
 document.querySelector('.menu-btn')?.addEventListener('click', () => {
   const links = document.querySelector('.nav-links');
   if (!links) return;
