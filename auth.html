@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>التحقق</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+    }
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      width: 200px;
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      background: #1f2937;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #374151;
+    }
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>أدخل الكود المصرح</h2>
+    <input type="password" id="codeInput" placeholder="اكتب الكود هنا">
+    <br>
+    <button onclick="checkCode()">دخول</button>
+    <div id="error" class="error"></div>
+  </div>
+
+  <script>
+    function checkCode() {
+      const input = document.getElementById("codeInput").value;
+      const correctCode = "1234"; // 🔑 الكود المصرح (غيره حسب رغبتك)
+      if (input === correctCode) {
+        // لو الكود صحيح يدخله على الموقع
+        window.location.href = "index.html";
+      } else {
+        document.getElementById("error").innerText = "❌ الكود غير صحيح";
+      }
+    }
+  </script>
+</body>
+</html>
