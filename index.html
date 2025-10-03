@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>التحقق</title>
+  <link rel="stylesheet" href="styles.css">
   <style>
     body {
       display: flex;
@@ -58,10 +59,10 @@
   <script>
     function checkCode() {
       const input = document.getElementById("codeInput").value;
-      const correctCode = "4444"; // 🔑 الكود المصرح (غيره حسب رغبتك)
+      const correctCode = "FIBTEST"; // 🔑 ضع الكود المصرح هنا
       if (input === correctCode) {
-        // لو الكود صحيح يدخله على الموقع
-        window.location.href = "index.html";
+        // ينقله للصفحة الرئيسية بعد التحقق
+        window.location.href = "home.html";
       } else {
         document.getElementById("error").innerText = "❌ الكود غير صحيح";
       }
