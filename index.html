@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>التحقق — نظام أمني</title>
+  <title>Verification — Security System</title>
   <meta name="theme-color" content="#001100"/>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
@@ -22,7 +22,6 @@
     html,body{height:100%;margin:0;font-family:'Share Tech Mono', monospace;background:var(--bg-1);color:var(--accent);-webkit-font-smoothing:antialiased;}
     body{display:flex;align-items:center;justify-content:center;overflow:hidden;padding:24px;}
 
-    /* ---- خلفية matrix متقدمة + ضوضاء ناعمة ---- */
     .bg-wrap {position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
     canvas#matrixCanvas{width:100%;height:100%;display:block}
     .noise {
@@ -30,7 +29,6 @@
       mix-blend-mode:screen;
     }
 
-    /* ---- البطاقة الرئيسية ---- */
     .card {
       position:relative;z-index:2;
       width: min(520px, 92vw);
@@ -46,10 +44,7 @@
       align-items:center;
     }
 
-    /* يسار البطاقة: واجهة المستخدم */
-    .ui {
-      padding-right: 6px;
-    }
+    .ui {padding-right: 6px;}
     .title {
       font-size:20px;
       color:var(--accent);
@@ -79,7 +74,6 @@
       transform: translateY(-2px);
     }
 
-    /* تأثير اهتزاز عند الخطأ */
     .shake {animation:shake .45s;}
     @keyframes shake{0%{transform:translateX(0)}20%{transform:translateX(6px)}40%{transform:translateX(-6px)}60%{transform:translateX(4px)}80%{transform:translateX(-2px)}100%{transform:translateX(0)}}
 
@@ -97,10 +91,7 @@
 
     .hint {margin-top:12px;font-size:13px;color:rgba(0,255,136,0.45)}
 
-    /* يمين البطاقة: بصمة/مرئي */
-    .panel {
-      display:flex;flex-direction:column;align-items:center;gap:14px;
-    }
+    .panel {display:flex;flex-direction:column;align-items:center;gap:14px;}
     .scanner {
       width:160px;height:160px;border-radius:50%;background:
       radial-gradient(circle at 30% 30%, rgba(0,255,136,0.06), transparent 30%),
@@ -109,16 +100,9 @@
       box-shadow:0 6px 30px rgba(0,255,136,0.06), inset 0 0 40px rgba(0,255,136,0.02);
       display:grid;place-items:center;position:relative;overflow:hidden;
     }
-    .ring {
-      position:absolute;inset:0;border-radius:50%;
-      border:2px dashed rgba(0,255,136,0.08);
-      transform:rotate(0deg);
-      animation: spin 8s linear infinite;
-      mix-blend-mode:screen;
-    }
+    .ring {position:absolute;inset:0;border-radius:50%;border:2px dashed rgba(0,255,136,0.08);animation: spin 8s linear infinite;mix-blend-mode:screen;}
     .ring.r2{animation-duration:10s;opacity:0.7;transform:scale(.9)}
     .ring.r3{animation-duration:12s;opacity:0.5;transform:scale(.8)}
-
     @keyframes spin{to{transform:rotate(360deg)}}
 
     .finger {
@@ -129,11 +113,9 @@
     .scanner.scanning .finger{transform:translateY(-6px) scale(1.02); box-shadow:0 12px 28px rgba(0,255,136,0.08)}
 
     .progress-bar {
-      width:100%;
-      height:10px;
+      width:100%;height:10px;
       background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:99px;
-      overflow:hidden;border:1px solid rgba(0,255,136,0.04)
+      border-radius:99px;overflow:hidden;border:1px solid rgba(0,255,136,0.04)
     }
     .progress {
       height:100%;width:0%;background:linear-gradient(90deg, rgba(0,255,136,0.25), rgba(0,255,136,0.6));
@@ -142,21 +124,17 @@
 
     .status {font-size:13px;color:rgba(0,255,136,0.7)}
 
-    /* رسائل خطأ/نجاح */
     .msg {margin-top:10px;font-size:13px}
     .msg.error{color:var(--danger);text-shadow:0 0 8px rgba(255,77,77,0.12)}
     .msg.ok{color:var(--accent);text-shadow:0 0 8px rgba(0,255,136,0.08)}
 
-    /* قفل مؤقت */
     .cooldown {margin-top:12px;font-size:13px;color:rgba(255,100,100,0.9)}
 
-    /* تجاوب */
     @media (max-width:720px){
       .card{grid-template-columns:1fr;gap:18px;padding:22px}
       .panel{flex-direction:row;justify-content:space-between}
     }
 
-    /* تقليل الحركة لمن يفضل ذلك */
     @media (prefers-reduced-motion: reduce){
       .ring{animation:none}
       .scanner.scanning .finger{transition:none}
@@ -166,34 +144,32 @@
 </head>
 <body>
 
-  <!-- خلفية -->
   <div class="bg-wrap">
     <canvas id="matrixCanvas" aria-hidden="true"></canvas>
     <div class="noise" aria-hidden="true"></div>
   </div>
 
-  <!-- البطاقة -->
   <main class="card" role="main" aria-labelledby="title">
-    <section class="ui" aria-label="واجهة التحقق">
-      <h1 id="title" class="title">نظام التحقق — <span style="font-size:12px;color:rgba(0,255,136,0.6)">وضع أمني</span></h1>
-      <p class="subtitle">أدخل رمز التفويض للوصول. النظام يسجل المحاولات ويطبق قفلًا عند المحاولات المتكررة.</p>
+    <section class="ui" aria-label="Verification Interface">
+      <h1 id="title" class="title">Verification System — <span style="font-size:12px;color:rgba(0,255,136,0.6)">Secure Mode</span></h1>
+      <p class="subtitle">Enter the authorization code to access. The system logs attempts and applies lockout after repeated failures.</p>
 
       <div class="input-wrap">
-        <input id="codeInput" autocomplete="one-time-code" aria-label="حقل رمز التحقق" type="password" inputmode="numeric" placeholder="●●●●">
+        <input id="codeInput" autocomplete="one-time-code" aria-label="Verification Code Input" type="password" inputmode="numeric" placeholder="●●●●">
         <div class="controls">
-          <button id="enterBtn" class="primary" aria-label="دخول">دخول</button>
-          <button id="resetBtn" class="ghost" aria-label="مسح">مسح</button>
+          <button id="enterBtn" class="primary" aria-label="Enter">Enter</button>
+          <button id="resetBtn" class="ghost" aria-label="Clear">Clear</button>
         </div>
       </div>
 
-      <div class="hint">الضغط على <strong>Enter</strong> يرسل الكود، و <strong>Esc</strong> لمسح الحقل.</div>
+      <div class="hint">Press <strong>Enter</strong> to submit, <strong>Esc</strong> to clear field.</div>
 
       <div id="message" class="msg" role="status" aria-live="polite"></div>
       <div id="cooldown" class="cooldown" hidden></div>
     </section>
 
-    <aside class="panel" aria-label="مكونات المسح">
-      <div class="scanner" id="scanner" aria-hidden="true">
+    <aside class="panel" aria-label="Scan Components">
+      <div class="scanner" id="scanner">
         <div class="ring r1"></div>
         <div class="ring r2"></div>
         <div class="ring r3"></div>
@@ -201,25 +177,21 @@
       </div>
 
       <div style="width:100%;">
-        <div class="progress-bar" aria-hidden="true">
-          <div id="progress" class="progress" style="width:0%"></div>
+        <div class="progress-bar">
+          <div id="progress" class="progress"></div>
         </div>
-        <div class="status">الحالة: <span id="statusText">جاهز</span></div>
-        <div id="attempts" class="status" style="margin-top:6px;color:rgba(255,255,255,0.06)">محاولات متبقية: <span id="left">3</span></div>
+        <div class="status">Status: <span id="statusText">Ready</span></div>
+        <div id="attempts" class="status" style="margin-top:6px;color:rgba(255,255,255,0.06)">Attempts left: <span id="left">3</span></div>
       </div>
     </aside>
   </main>
 
 <script>
-  // ===== إعدادات الأمان (قابل للتعديل بسهولة) =====
-  const MAX_ATTEMPTS = 3;           // محاولات قبل القفل
-  const LOCK_SECONDS = 20;          // ثواني القفل بعد المحاولات الفاشلة
-  const COUNTDOWN_TO_REDIRECT = 2;  // ثواني قبل الانتقال بعد نجاح
+  const MAX_ATTEMPTS = 3;
+  const LOCK_SECONDS = 20;
+  const COUNTDOWN_TO_REDIRECT = 2;
+  const correctCode = "4455";
 
-  // هنا تغيّر الكود اللي تبيه بسهولة — اكتب الكود كنص داخل العلامات
-  const correctCode = "4455"; // <-- غير القيمة هنا لو تبي كود ثاني
-
-  // ===== عناصر DOM =====
   const codeInput = document.getElementById('codeInput');
   const enterBtn = document.getElementById('enterBtn');
   const resetBtn = document.getElementById('resetBtn');
@@ -231,26 +203,9 @@
   const leftEl = document.getElementById('left');
   const cooldownEl = document.getElementById('cooldown');
 
-  // حالة
   let attemptsLeft = MAX_ATTEMPTS;
   let lockedUntil = 0;
 
-  // WebAudio خفيف للأحداث (قابل للتعطيل)
-  let audioCtx = null;
-  function beep(freq=440, dur=0.06, vol=0.1){
-    try {
-      if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      const o = audioCtx.createOscillator();
-      const g = audioCtx.createGain();
-      o.type = "sine"; o.frequency.value = freq;
-      g.gain.value = vol;
-      o.connect(g); g.connect(audioCtx.destination);
-      o.start();
-      setTimeout(()=>{ o.stop(); }, dur*1000);
-    } catch(e){}
-  }
-
-  // ===== دوال واجهة ----
   function setMessage(txt, kind='info'){
     message.className = 'msg ' + (kind==='error'?'error': kind==='ok'?'ok':'');
     message.textContent = txt;
@@ -261,8 +216,8 @@
     if(Date.now() < lockedUntil){
       const rem = Math.ceil((lockedUntil - Date.now())/1000);
       cooldownEl.hidden = false;
-      cooldownEl.textContent = `مقفول مؤقتاً — انتظر ${rem} ثانية`;
-      statusText.textContent = 'مقفل';
+      cooldownEl.textContent = `Locked — wait ${rem}s`;
+      statusText.textContent = 'Locked';
       codeInput.disabled = true;
       enterBtn.disabled = true;
       resetBtn.disabled = true;
@@ -271,108 +226,91 @@
       codeInput.disabled = false;
       enterBtn.disabled = false;
       resetBtn.disabled = false;
-      statusText.textContent = 'جاهز';
+      statusText.textContent = 'Ready';
     }
   }
 
-  // اهتزاز الحقل بصريًا عند الخطأ
   function shakeInput(){
     codeInput.classList.remove('shake');
-    void codeInput.offsetWidth; // reflow
+    void codeInput.offsetWidth;
     codeInput.classList.add('shake');
   }
 
-  // عملية تحقق متحركة (مسح بصمة)
   async function doScanAnimation(success){
     scanner.classList.add('scanning');
-    statusText.textContent = 'جار التحقق...';
-    // ملء progress تدريجيًا
+    statusText.textContent = 'Verifying...';
     progressEl.style.width = '0%';
     for(let i=0;i<=100;i+=8){
       progressEl.style.width = i + '%';
-      await new Promise(r=>setTimeout(r, 28 + (success?0:5)));
+      await new Promise(r=>setTimeout(r, 28));
     }
-    // تومض للنجاح أو الفشل
     if(success){
       finger.textContent = '✅';
-      setMessage('تم التحقق — سيتم التحويل الآن', 'ok');
-      beep(880,0.08,0.08);
+      setMessage('Access Granted — redirecting...', 'ok');
     } else {
       finger.textContent = '❌';
-      setMessage('الكود غير صحيح', 'error');
-      beep(220,0.12,0.12);
+      setMessage('Incorrect code', 'error');
     }
     await new Promise(r=>setTimeout(r, 450));
     scanner.classList.remove('scanning');
-    // إرجاع أيقونة القفل
     finger.textContent = '🔒';
     progressEl.style.width = '0%';
   }
 
-  // التحقق النهائي (مقارنة مباشرة بالقيمة في الملف)
   async function verifyCode(plain){
-    // تحقق إن النظام مقفل
     if(Date.now() < lockedUntil){
-      setMessage('النظام مقفل مؤقتاً — انتظر قليلاً', 'error');
+      setMessage('System locked — please wait', 'error');
       return;
     }
 
     if(!plain || plain.trim().length === 0){
-      setMessage('أدخل الكود أولا', 'error');
+      setMessage('Enter the code first', 'error');
       shakeInput();
-      beep(200,0.06,0.06);
       return;
     }
 
     const ok = (plain.trim() === correctCode);
-
-    // انطلق بالأنميشن
     await doScanAnimation(ok);
 
     if(ok){
-      // نجاح — تحويل بعد COUNTDOWN_TO_REDIRECT ثانية مع تأثير
       let t = COUNTDOWN_TO_REDIRECT;
-      statusText.textContent = `سيتم التحويل خلال ${t} ثوانٍ`;
+      statusText.textContent = `Redirecting in ${t}s`;
       codeInput.disabled = true;
       enterBtn.disabled = true;
       const countdown = setInterval(()=>{
         t--;
-        if(t>0) statusText.textContent = `سيتم التحويل خلال ${t} ثوانٍ`;
+        if(t>0) statusText.textContent = `Redirecting in ${t}s`;
         else {
           clearInterval(countdown);
-          try { window.location.href = "home.html"; } catch(e){}
+          window.location.href = "home.html";
         }
       }, 1000);
     } else {
-      // فشل
       attemptsLeft--;
       if(attemptsLeft <= 0){
         lockedUntil = Date.now() + LOCK_SECONDS*1000;
-        attemptsLeft = MAX_ATTEMPTS; // إعادة تعيين بعد القفل
-        setMessage(`تم تجاوز الحد. النظام مقفل ${LOCK_SECONDS} ثانية.`, 'error');
+        attemptsLeft = MAX_ATTEMPTS;
+        setMessage(`Too many attempts. Locked for ${LOCK_SECONDS}s.`, 'error');
         shakeInput();
       } else {
-        setMessage(`خطأ. المحاولات المتبقية: ${attemptsLeft}`, 'error');
+        setMessage(`Wrong code. Attempts left: ${attemptsLeft}`, 'error');
         shakeInput();
       }
       updateUI();
     }
   }
 
-  // ===== أحداث واجهة =====
   enterBtn.addEventListener('click', ()=> verifyCode(codeInput.value));
   resetBtn.addEventListener('click', ()=>{ codeInput.value = ''; codeInput.focus(); setMessage(''); });
 
   codeInput.addEventListener('keydown', (e)=>{
     if(e.key === 'Enter'){ e.preventDefault(); verifyCode(codeInput.value); }
-    if(e.key === 'Escape'){ codeInput.value=''; setMessage('تم المسح'); }
+    if(e.key === 'Escape'){ codeInput.value=''; setMessage('Cleared'); }
   });
 
-  // تحقق دوري لتحديث حالة القفل
   setInterval(updateUI, 500);
   updateUI();
 
-  // ==== Matrix Canvas (خلفية متقدمة) ====
   (function(){
     const canvas = document.getElementById('matrixCanvas');
     const ctx = canvas.getContext('2d');
@@ -383,7 +321,7 @@
     const columns = Math.floor(canvas.width / fontSize);
     const drops = Array.from({length: columns}, ()=>Math.random()*canvas.height/fontSize);
 
-    const chars = "٠١٢٣٤٥٦٧٨٩ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#%&*+=-<>/".split('');
+    const chars = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#%&*+=-<>/".split('');
 
     function draw(){
       ctx.fillStyle = "rgba(0,0,0,0.06)";
@@ -397,11 +335,9 @@
         if(drops[i]*fontSize > canvas.height && Math.random()>0.995) drops[i]=0;
       }
     }
-    const t = setInterval(draw, 40);
-    if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) clearInterval(t);
+    setInterval(draw, 40);
   })();
 
-  // ==== تحسين تجربة الوصول (focus) ====
   codeInput.focus();
 </script>
 
